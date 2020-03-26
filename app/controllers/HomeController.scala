@@ -7,9 +7,11 @@ import play.api.mvc._
 class HomeController @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
 
   def index: Action[AnyContent] = Action {
-    Ok(views.html.index("Hello world"))
+    Ok("Hello world")
   }
 
-
+  def indexWithView: Action[AnyContent] = Action {
+    Ok(views.html.index("Hello world"))
+  }
 
 }
