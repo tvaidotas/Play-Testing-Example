@@ -7,7 +7,7 @@ import play.api.mvc._
 @Singleton
 class HomeController @Inject()(cc: ControllerComponents, val authAction: AuthenticationAction) extends AbstractController(cc) {
 
-  def index: Action[AnyContent] = Action {
+  def index: Action[AnyContent] = authAction {
     Ok("Hello world")
   }
 

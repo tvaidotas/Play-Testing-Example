@@ -12,8 +12,8 @@ class AuthenticationAction @Inject()(val parser: BodyParsers.Default)(implicit v
   extends ActionBuilder[AuthenticatedRequest, AnyContent] {
 
   override def invokeBlock[A](request: Request[A], block: AuthenticatedRequest[A] => Future[Result]): Future[Result] = {
-    request.session.get("username")
-      .flatMap(username => LoginDetails.getUsername(username))
+    request.cookies.get("username")
+      .flatMap(username => LoginDetails.getUsername(username.value))
       .map(user => block(new AuthenticatedRequest(user.username, request)))
       .getOrElse(Future.successful(Results.Redirect("/login")))
   }
